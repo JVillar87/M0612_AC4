@@ -39,11 +39,11 @@ function mostrarProductes(llista) {
 // --- TASCA 1: MÈTRIQUES DEL DASHBOARD (reduce, at, some, every) ---
 function actualitzarMetriques() {
     // TODO 1.1: Utilitza 'reduce' per calcular el valor total (preu * stock)
-    const total = productes.reduce((acc, prod) => acc + (prod.preu * prod.stock), 0);
-    document.getElementById("val-total").innerText = `${total.toFixed(2)} €`;
+    const totalProductes = productes.reduce((acc, prod) => acc + (prod.preu * prod.stock), 0);
+    document.getElementById("val-total").innerText = `${totalProductes.toFixed(2)} €`;
     // TODO 1.2: Utilitza el mètode 'at(-1)' per obtenir l'últim producte afegit a l'array
-    const ultim = productes.at(-1);
-    document.getElementById("val-ultim").innerText = ultim ? ultim.nom : "-";
+    const ultimProducte = productes.at(-1);
+    document.getElementById("val-ultim").innerText = ultimProducte ? ultimProducte.nom : "-";
     // TODO 1.3: Utilitza 'some' per comprovar si hi ha cap producte sense stock (stock === 0)
     const téSenseStock = productes.some(prod => prod.stock === 0);
     document.getElementById("val-sense-stock").innerText = téSenseStock ? "⚠️ Manca stock" : "✅ Ok";
@@ -135,7 +135,6 @@ document.querySelectorAll(".sortable").forEach(th => {
         }
 
         // TODO 5.1: Utilitza 'toSorted' (ES2023) per obtenir un array ordenat segons la columna (nom, preu o stock)
-        // let llistaOrdenada = productes.toSorted((a, b) => { ... });
         let llistaOrdenada = productes.toSorted((a, b) => {
             if (columna === "nom") {
                 return a[columna].localeCompare(b[columna]);
@@ -171,14 +170,14 @@ function aplicarFiltres() {
 
 // --- FUNCIONS AUXILIARS D'EDICIÓ I FORMULARI ---
 function carregarPerEditar(id) {
-    const prod = productes.find(p => p.id === id);
-    if (!prod) return;
+    const productePerEditar = productes.find(p => p.id === id);
+    if (!productePerEditar) return;
 
-    document.getElementById("edit-id").value = prod.id;
-    document.getElementById("nom").value = prod.nom;
-    document.getElementById("categoria").value = prod.categoria;
-    document.getElementById("preu").value = prod.preu;
-    document.getElementById("stock").value = prod.stock;
+    document.getElementById("edit-id").value = productePerEditar.id;
+    document.getElementById("nom").value = productePerEditar.nom;
+    document.getElementById("categoria").value = productePerEditar.categoria;
+    document.getElementById("preu").value = productePerEditar.preu;
+    document.getElementById("stock").value = productePerEditar.stock;
 
     document.getElementById("form-title").innerText = "✏️ Editar Producte";
     document.getElementById("btn-submit").innerText = "Actualitzar (with)";
